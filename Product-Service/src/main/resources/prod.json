@@ -1,0 +1,172 @@
+[
+  {
+    "name": "iPhone 15 Pro",
+    "brand": "Apple",
+    "price": 1299.99,
+    "stockQuantity": 50,
+    "available": true,
+    "categoryId": "64cat001",
+    "imageUrls": [
+      "https://www.designinfo.in/p/apple-iphone-15-pro-max-512gb-natural-titanium-unlocked-gst-billing/"
+    ],
+    "attributes": [
+      { "key": "RAM", "value": "8GB" },
+      { "key": "Storage", "value": "256GB" },
+      { "key": "Color", "value": "Titanium" },
+      { "key": "Battery", "value": "3274mAh" }
+    ]
+  },
+  {
+    "name": "Galaxy S24 Ultra",
+    "brand": "Samsung",
+    "price": 1199.99,
+    "stockQuantity": 70,
+    "available": true,
+    "categoryId": "64cat001",
+    "imageUrls": [
+      "https://images.samsung.com/galaxy-s24-ultra.jpg"
+    ],
+    "attributes": [
+      { "key": "RAM", "value": "12GB" },
+      { "key": "Storage", "value": "512GB" },
+      { "key": "Color", "value": "Phantom Black" },
+      { "key": "Battery", "value": "5000mAh" }
+    ]
+  },
+  {
+    "name": "MacBook Air M3",
+    "brand": "Apple",
+    "price": 1499.99,
+    "stockQuantity": 30,
+    "available": true,
+    "categoryId": "64cat002",
+    "imageUrls": [
+      "https://store.apple.com/macbook-air-m3.jpg"
+    ],
+    "attributes": [
+      { "key": "RAM", "value": "16GB" },
+      { "key": "Storage", "value": "512GB SSD" },
+      { "key": "Color", "value": "Silver" },
+      { "key": "Display", "value": "13.6-inch Retina" }
+    ]
+  },
+  {
+    "name": "Dell XPS 15",
+    "brand": "Dell",
+    "price": 1799.99,
+    "stockQuantity": 25,
+    "available": true,
+    "categoryId": "64cat002",
+    "imageUrls": [
+      "https://www.dell.com/xps-15.jpg"
+    ],
+    "attributes": [
+      { "key": "RAM", "value": "32GB" },
+      { "key": "Storage", "value": "1TB SSD" },
+      { "key": "Color", "value": "Platinum Silver" },
+      { "key": "GPU", "value": "NVIDIA RTX 4060" }
+    ]
+  },
+  {
+    "name": "Sony WH-1000XM5",
+    "brand": "Sony",
+    "price": 399.99,
+    "stockQuantity": 100,
+    "available": true,
+    "categoryId": "64cat003",
+    "imageUrls": [
+      "https://www.sony.com/wh-1000xm5.jpg"
+    ],
+    "attributes": [
+      { "key": "Type", "value": "Over-Ear" },
+      { "key": "Color", "value": "Black" },
+      { "key": "Battery Life", "value": "30 hours" },
+      { "key": "Noise Cancellation", "value": "Yes" }
+    ]
+  },
+  {
+    "name": "Bose QuietComfort Ultra",
+    "brand": "Bose",
+    "price": 349.99,
+    "stockQuantity": 80,
+    "available": true,
+    "categoryId": "64cat003",
+    "imageUrls": [
+      "https://www.bose.com/quietcomfort-ultra.jpg"
+    ],
+    "attributes": [
+      { "key": "Type", "value": "Over-Ear" },
+      { "key": "Color", "value": "White" },
+      { "key": "Battery Life", "value": "24 hours" },
+      { "key": "Noise Cancellation", "value": "Adaptive" }
+    ]
+  },
+  {
+    "name": "Canon EOS R6 Mark II",
+    "brand": "Canon",
+    "price": 2499.99,
+    "stockQuantity": 15,
+    "available": true,
+    "categoryId": "64cat004",
+    "imageUrls": [
+      "https://www.canon.com/eos-r6-mark-ii.jpg"
+    ],
+    "attributes": [
+      { "key": "Sensor", "value": "Full Frame CMOS" },
+      { "key": "Resolution", "value": "24.2MP" },
+      { "key": "Lens Mount", "value": "RF" },
+      { "key": "Video", "value": "4K60" }
+    ]
+  },
+  {
+    "name": "Nikon Z8",
+    "brand": "Nikon",
+    "price": 3999.99,
+    "stockQuantity": 10,
+    "available": true,
+    "categoryId": "64cat004",
+    "imageUrls": [
+      "https://www.nikon.com/z8.jpg"
+    ],
+    "attributes": [
+      { "key": "Sensor", "value": "Full Frame CMOS" },
+      { "key": "Resolution", "value": "45.7MP" },
+      { "key": "Lens Mount", "value": "Z" },
+      { "key": "Video", "value": "8K30" }
+    ]
+  },
+  {
+    "name": "Apple Watch Series 10",
+    "brand": "Apple",
+    "price": 499.99,
+    "stockQuantity": 60,
+    "available": true,
+    "categoryId": "64cat005",
+    "imageUrls": [
+      "https://www.apple.com/watch-series-10.jpg"
+    ],
+    "attributes": [
+      { "key": "Size", "value": "45mm" },
+      { "key": "Color", "value": "Midnight" },
+      { "key": "Battery Life", "value": "18 hours" },
+      { "key": "Connectivity", "value": "GPS + Cellular" }
+    ]
+  },
+  {
+    "name": "Fitbit Charge 6",
+    "brand": "Fitbit",
+    "price": 179.99,
+    "stockQuantity": 120,
+    "available": true,
+    "categoryId": "64cat005",
+    "imageUrls": [
+      "https://www.fitbit.com/charge-6.jpg"
+    ],
+    "attributes": [
+      { "key": "Size", "value": "40mm" },
+      { "key": "Color", "value": "Graphite" },
+      { "key": "Battery Life", "value": "7 days" },
+      { "key": "Connectivity", "value": "Bluetooth" }
+    ]
+  }
+]
