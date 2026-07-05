@@ -1,23 +1,24 @@
 package com.orderservice.service;
 
-import com.orderservice.dto.ItemsRequest;
-import com.orderservice.dto.OrderRequest;
-import com.orderservice.dto.OrderResponse;
-import com.orderservice.dto.ProductRequest;
+import com.orderservice.dto.*;
 import com.orderservice.model.Order;
 import com.orderservice.model.OrderItems;
 import com.orderservice.repo.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
     private final ProductFiegn productFiegn;
+    private final OrderProducer orderProducer;
+
 
     public void MakeOreder(OrderRequest orderRequest){
 
@@ -40,6 +41,8 @@ public class OrderService {
                         throw new RuntimeException("Sorry! stocks are not available");
                     }
 
+                    productFiegn.stockeManage(product.getId(), items.getQuantity());     
+
                     return OrderItems.builder()
                             .productId(product.getId())
                             .productName(items.getProductName())
@@ -54,7 +57,17 @@ public class OrderService {
         order.setOrderItems(itemsRequests);
         double total = itemsRequests.stream().mapToDouble(i->i.getPrice()*i.getQuantity()).sum();
         order.setTotalAmount(total);
-        orderRepository.save(order);
+        Order saved = orderRepository.save(order);
+
+        OrderEvent event = OrderEvent.builder()
+                .orderId(saved.getId())
+                .userId(saved.getUserId())
+                .totalAmount(saved.getTotalAmount())
+                .status(saved.getOrderStatus())
+                .build();
+
+        orderProducer.sendEvent(event);
+        log.info("Order saved and event published for orderId: {}", saved.getId());
     }
 
     public List<OrderResponse> showAll(){

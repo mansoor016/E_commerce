@@ -6,11 +6,13 @@ import com.productservice.dto.ProductResponse;
 import com.productservice.file.ProductFileParser;
 import com.productservice.model.Product;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ProductService {
@@ -89,6 +91,24 @@ public class ProductService {
             throw new RuntimeException("Product not found");
         }
         return getAllResponse(product);
+    }
+
+    public void manageStock(String stockId, int quantity){
+        Product product = productRepository.findById(stockId).orElseThrow(()->
+                new RuntimeException("Product not found.."));
+
+        if (product.getStockQuantiy()<quantity){
+            throw new RuntimeException("Insufficient Stock.....");
+        }
+        int newStock = product.getStockQuantiy()-quantity;
+        product.setStockQuantiy(newStock);
+
+        if (newStock==0){
+            product.setAvailable(false);
+            log.info("Product {} is now out of stock ", product.getName());
+        }
+
+        productRepository.save(product);
     }
 
 
