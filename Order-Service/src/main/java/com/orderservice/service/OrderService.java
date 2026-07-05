@@ -1,6 +1,8 @@
 package com.orderservice.service;
 
 import com.orderservice.dto.*;
+import com.orderservice.exception.InsufficientStockException;
+import com.orderservice.exception.ResourceNotFoundException;
 import com.orderservice.model.Order;
 import com.orderservice.model.OrderItems;
 import com.orderservice.repo.OrderRepository;
@@ -35,10 +37,10 @@ public class OrderService {
                     ProductRequest product = productFiegn.getProductByName(items.getProductName());
 
                     if (!product.isAvailable()){
-                        throw new RuntimeException(items.getProductName()+" is not available");
+                        throw new ResourceNotFoundException(items.getProductName()+" is not available");
                     }
                     if (items.getQuantity()>product.getStockQuantiy()){
-                        throw new RuntimeException("Sorry! stocks are not available");
+                        throw new InsufficientStockException("Sorry! stocks are not available");
                     }
 
                     productFiegn.stockeManage(product.getId(), items.getQuantity());     
