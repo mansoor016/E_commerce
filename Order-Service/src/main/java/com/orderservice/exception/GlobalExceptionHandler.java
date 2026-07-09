@@ -38,21 +38,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    // Feign error — 503
-//    @ExceptionHandler(feign.FeignException.class)
-//    public ResponseEntity<ErrorResponse> handleFeignException(
-//            feign.FeignException ex) {
-//
-//        ErrorResponse error = ErrorResponse.builder()
-//                .status(503)
-//                .error("Service Unavailable")
-//                .message("Dependent service is not available!")
-//                .timestamp(LocalDateTime.now())
-//                .build();
-//
-//        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(error);
-//    }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         // Feign error hai check karo
