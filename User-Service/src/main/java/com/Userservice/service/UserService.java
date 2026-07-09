@@ -15,14 +15,14 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public void AddUser(UserRequest userRequest){
         Users users = Users.builder()
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
                 .email(userRequest.getEmail())
-                .password(userRequest.getPassword())
+                .password(passwordEncoder.encode(userRequest.getPassword()))
                 .phone(userRequest.getPhone())
                 .address(userRequest.getAddress())
                 .role(userRequest.getRole())
@@ -54,7 +54,8 @@ public class UserService {
                 .getEmail()));
         System.out.println("DB passowrd "+ user.getPassword());
         System.out.println("passowrd given "+ dto.getPass());
-        if(!user.getPassword().equals(dto.getPass())){
+//        if(!user.getPassword().equals(dto.getPass()))
+          if(!passwordEncoder.matches(dto.getPass(),user.getPassword())){
             throw new RuntimeException("password is wrong");
         }
         System.out.println("email is successfull");
