@@ -52,8 +52,9 @@ public class UserService {
 
         Users user  = userRepository.findByEmail(dto.getEmail()).orElseThrow(()->new RuntimeException("user not found with this email "+ dto
                 .getEmail()));
-        System.out.println("DB passowrd "+ user.getPassword());
-        System.out.println("passowrd given "+ dto.getPass());
+        System.out.println("DB Password = [" + user.getPassword() + "]");
+        System.out.println("Entered Password = [" + dto.getPass() + "]");
+        System.out.println(user.getPassword().equals(dto.getPass()));
 //        if(!user.getPassword().equals(dto.getPass()))
           if(!passwordEncoder.matches(dto.getPass(),user.getPassword())){
             throw new RuntimeException("password is wrong");
