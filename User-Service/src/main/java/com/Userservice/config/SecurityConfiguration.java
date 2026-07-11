@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAut
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @RequiredArgsConstructor
@@ -23,22 +26,11 @@ import org.springframework.security.web.SecurityFilterChain;
 //@EnableWebSecurity
 public class SecurityConfiguration {
 
-	private final UserRepository userRepository;
+//	private final UserRepository userRepository;
+	private final JwtFilter jwtFilter;
 
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return email-> userRepository.findByEmail(email).map(
-				user-> User.builder()
-						.username(user.getEmail())
-						.password(user.getPassword())
-						.roles(user.getRole().name())
-						.build()
-		)
-				.orElseThrow(()->
-						new UsernameNotFoundException(
-								"User not found: " + email
-						));
-	}
+	private final CustomerUserDetailService userDetailsService;
+
 
 	@Bean
 	public PasswordEncoder passwordEncoder(){
@@ -49,11 +41,18 @@ public class SecurityConfiguration {
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider provider =
 				new DaoAuthenticationProvider();
-		provider.setUserDetailsService(userDetailsService());
+		provider.setUserDetailsService(userDetailsService);
 		provider.setPasswordEncoder(passwordEncoder());
 
 		return provider;
 	}
+
+	@Bean
+	public AuthenticationManager authenticationManager(
+			AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
+
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
@@ -66,7 +65,8 @@ public class SecurityConfiguration {
 						.anyRequest().authenticated()
 				)
 				.authenticationProvider(authenticationProvider())
-				.httpBasic(Customizer.withDefaults())
+				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+//				.httpBasic(Customizer.withDefaults())
 				.formLogin(form->form.disable());
 		return http.build();
 

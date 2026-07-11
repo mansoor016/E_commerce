@@ -2,6 +2,7 @@ package com.Userservice.service;
 
 import com.Userservice.Repo.UserRepository;
 import com.Userservice.dto.LoggedInDto;
+import com.Userservice.dto.LoginRequest;
 import com.Userservice.dto.UserRequest;
 import com.Userservice.dto.UserResponse;
 import com.Userservice.model.Users;
@@ -16,6 +17,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public void AddUser(UserRequest userRequest){
         Users users = Users.builder()
@@ -48,19 +50,24 @@ public class UserService {
                .updatedAt(users.getUpdatedAt()).build();
     }
 
-    public boolean SignIn(LoggedInDto dto){
+    public LoginRequest SignIn(LoggedInDto dto){
 
         Users user  = userRepository.findByEmail(dto.getEmail()).orElseThrow(()->new RuntimeException("user not found with this email "+ dto
                 .getEmail()));
         System.out.println("DB Password = [" + user.getPassword() + "]");
         System.out.println("Entered Password = [" + dto.getPass() + "]");
-        System.out.println(user.getPassword().equals(dto.getPass()));
+
 //        if(!user.getPassword().equals(dto.getPass()))
           if(!passwordEncoder.matches(dto.getPass(),user.getPassword())){
             throw new RuntimeException("password is wrong");
         }
-        System.out.println("email is successfull");
-        return true;
+          String token = jwtService.generateToken(user.getEmail());
+
+        return LoginRequest.builder()
+                .token(token)
+                .email(user.getEmail())
+                .message("email is successfull")
+                .build();
 
     }
 }

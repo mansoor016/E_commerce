@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 @RestController
-public class UserController {
+public class    UserController {
 
     private final UserService userService;
 
@@ -32,8 +32,8 @@ public class UserController {
     @PostMapping("/logedIn")
     public ResponseEntity<String> loginUser(@RequestBody LoggedInDto dto){
         try{
-            userService.SignIn(dto);
-            return ResponseEntity.ok("Login successfully! Welcome");
+            String token = userService.SignIn(dto).getToken();
+            return ResponseEntity.ok(token);
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
