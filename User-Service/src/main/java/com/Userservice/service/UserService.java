@@ -61,7 +61,7 @@ public class UserService {
           if(!passwordEncoder.matches(dto.getPass(),user.getPassword())){
             throw new RuntimeException("password is wrong");
         }
-          String token = jwtService.generateToken(user.getEmail());
+          String token = jwtService.generateToken(user.getEmail(), user.getId());
 
         return LoginRequest.builder()
                 .token(token)

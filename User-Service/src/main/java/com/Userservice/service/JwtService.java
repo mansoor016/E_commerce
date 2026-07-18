@@ -25,9 +25,10 @@ public class JwtService {
     }
 
     // Token generate karo
-    public String generateToken(String email) {
+    public String generateToken(String email, Long userId) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("userId", userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(
                         System.currentTimeMillis() + EXPIRATION))
@@ -46,6 +47,15 @@ public class JwtService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public Long extractUserId(String token) {
+        return Jwts.parser()
+                .setSigningKey(getKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("userId", Long.class);  // ← Claims se nikalo
     }
 
     // Token se email nikalo

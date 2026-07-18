@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 public class OrderRequest {
 
-    private String userId;
+//    private String userId;
     private String address;
     private String ph_no;
     private String pincode;

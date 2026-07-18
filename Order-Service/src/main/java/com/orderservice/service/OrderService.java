@@ -20,12 +20,18 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductFiegn productFiegn;
     private final OrderProducer orderProducer;
+    private final JwtService jwtService;
 
 
-    public void MakeOreder(OrderRequest orderRequest){
+    public void MakeOreder(OrderRequest orderRequest, String authHeader){
+
+        String token = authHeader.substring(7);
+        Long userId = jwtService.extractUserId(token);
+
+        log.info("Order is placing with the OrderId: {}", userId);
 
         Order order = Order.builder()
-                .userId(orderRequest.getUserId())
+                .userId(String.valueOf(userId))
                 .address(orderRequest.getAddress())
                 .ph_no(orderRequest.getPh_no())
                 .pincode(orderRequest.getPincode())

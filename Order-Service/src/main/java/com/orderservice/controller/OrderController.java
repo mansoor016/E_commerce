@@ -29,8 +29,9 @@ public class OrderController {
 
 
     @PostMapping
-    public void makeOrder(@RequestBody OrderRequest orderRequest){
-        orderService.MakeOreder(orderRequest);
+    public void makeOrder(@RequestBody OrderRequest orderRequest,
+                          @RequestHeader("Authorization") String authHeader){
+        orderService.MakeOreder(orderRequest, authHeader);
     }
 
     @GetMapping
